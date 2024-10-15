@@ -11,6 +11,8 @@ import edu.Servicios.FicheroLogImplementacion;
 import edu.Servicios.FicheroLogInterfaz;
 import edu.Servicios.MenuImplementacion;
 import edu.Servicios.MenuInterfaz;
+import edu.Servicios.UsuarioImplementacion;
+import edu.Servicios.UsuariosInterfaz;
 	/**
 	 * Clase principal de la aplicación
 	 * 220923 - rfg
@@ -25,6 +27,7 @@ import edu.Servicios.MenuInterfaz;
 			
 			ConexionPostgresqlInterfaz postgreConexion = new ConexionPostgresqlImplementacion();
 			MenuInterfaz menu = new MenuImplementacion();
+			UsuariosInterfaz usuarios = new UsuarioImplementacion();
 			FicheroLogInterfaz ficheroLog = new FicheroLogImplementacion();
 			List<UsuarioDto> listaUsuarios = new ArrayList<UsuarioDto>();
 			boolean cerrarMenu = false;
@@ -81,6 +84,7 @@ import edu.Servicios.MenuInterfaz;
 								System.out.println("Crear cuenta como usuario");
 								mensaje = "Se crea una cuenta como usuario";
 								ficheroLog.ficheroLog(mensaje);
+								usuarios.usuarioNuevo(listaUsuarios);
 								break;
 							case 2:
 								System.out.println("Crear cuenta como club");
