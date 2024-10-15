@@ -63,7 +63,7 @@ public class ConexionPostgresqlImplementacion implements ConexionPostgresqlInter
 		
 		Properties propiedadesConexion = new Properties();
 		try {
-			propiedadesConexion.load(new FileInputStream(new File("C:\\Users\\Trabajo\\dws-workspace\\edu.jdbc.crud\\src\\edu\\jdbc\\crud\\util\\conexion_postgresql.properties")));
+			propiedadesConexion.load(new FileInputStream(new File("C:\\Users\\CHI\\Desktop\\CSI2\\DWS (D Regino)\\Proyecto2\\src\\edu\\conexion_postgresql.properties")));
 			user = propiedadesConexion.getProperty("user");
 			pass = propiedadesConexion.getProperty("pass");
 			port = propiedadesConexion.getProperty("port");
