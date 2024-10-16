@@ -9,9 +9,9 @@ public class MenuImplementacion implements MenuInterfaz{
 		System.out.println("Menu Principal");
 		System.out.println("//////////////");
 		System.out.println("[0 - Cerrar Menú]");
-		System.out.println("[1 - Iniciar como usuario]");
-		System.out.println("[2 - Iniciar como club]");
-		System.out.println("[3 - Crear nueva cuenta]");
+		System.out.println("[1 - Crear nueva cuenta]");
+		System.out.println("[2 - Eliminar nueva cuenta]");
+		System.out.println("[3 - Modificar una cuenta]");
 		
 		byte opMenuPrincipal = sc.nextByte();
 		
@@ -27,6 +27,20 @@ public class MenuImplementacion implements MenuInterfaz{
 		System.out.println("[0 - Volver al menú principal]");
 		System.out.println("[1 - Crear cuenta de como usuario]");
 		System.out.println("[2 - Crear cuenta como club]");
+		
+		byte opMenuCuentaNueva = sc.nextByte();
+		
+		return opMenuCuentaNueva;
+		
+	}
+	
+	public byte menuEliminarCuenta() {
+		
+		System.out.println("Crear nueva cuenta");
+		System.out.println("//////////////");
+		System.out.println("[0 - Volver al menú principal]");
+		System.out.println("[1 - Eliminar cuenta de un usuario]");
+		System.out.println("[2 - Eliminar cuenta de un club]");
 		
 		byte opMenuCuentaNueva = sc.nextByte();
 		

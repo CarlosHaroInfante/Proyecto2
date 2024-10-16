@@ -1,0 +1,75 @@
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como usuario
+Se va a eliminar una cuenta
+Se eliminar una cuenta de usuario
+Se va a Modificar una cuenta
+Vuelve al menú principal
+Opción no válida, El usuario vuelve a intentarlo
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como usuario
+Se va a eliminar una cuenta
+Se eliminar una cuenta de usuario
+Error tipo I/O en el menú o en una de sus opciones
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como usuario
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como usuario
+Entra en el menú principal
+Se va a eliminar una cuenta
+Se eliminar una cuenta de usuario
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Error tipo I/O en el menú o en una de sus opciones
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como usuario
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como usuario
+Entra en el menú principal
+Se va a eliminar una cuenta
+Se eliminar una cuenta de usuario
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como usuario
+Entra en el menú principal
+Se va a Modificar una cuenta
+Se modifica una cuenta de usuario
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como usuario
+Entra en el menú principal
+Se va a Modificar una cuenta
+Se modifica una cuenta de usuario
+Entra en el menú principal
+Se va a Modificar una cuenta
+Se modifica una cuenta de usuario
+Entra en el menú principal
+Se cierra el menú
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como club
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como club
+Entra en el menú principal
+Se va a eliminar una cuenta
+Se eliminar una cuenta de club
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como club
+Entra en el menú principal
+Se va a Modificar una cuenta
+Se modifica una cuenta de club
+Entra en el menú principal
+Se va a crear una nueva cuenta
+Se crea una cuenta como club
+Entra en el menú principal
+Se va a Modificar una cuenta
+Se modifica una cuenta de club
+Entra en el menú principal
+Se cierra el menú

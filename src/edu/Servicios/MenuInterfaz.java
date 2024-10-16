@@ -6,5 +6,7 @@ public interface MenuInterfaz {
 	
 	public byte menuNuevaCuenta();
 	
+	public byte menuEliminarCuenta();
+	
 	public byte menuModificarCuenta();
 }
