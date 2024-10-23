@@ -1,13 +1,18 @@
 package edu.Servicios;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import edu.Dtos.ClubDto;
+import edu.Dtos.UsuarioDto;
 
 public class ClubImplementacion implements ClubInterfaz{
 
+	ConsultasPostgresqlInterfaz consultas = new ConsultasPostgresqlImplementacion();
+	ConexionPostgresqlInterfaz conexionPostgresql = new ConexionPostgresqlImplementacion();
+	
 	Scanner sc = new Scanner(System.in);
 	public void crearClub(List<ClubDto> listaClub) {
 		ClubDto nuevoClub = new ClubDto();
@@ -21,7 +26,10 @@ public class ClubImplementacion implements ClubInterfaz{
 		System.out.println("Código de acceso");
 		nuevoClub.setCodigo_acceso(generarCodigoAcceso());
 		
-		nuevoClub.setIdClub(idAutoGenerado(listaClub));
+		Connection conexion = conexionPostgresql.generaConexion();
+	    //nuevoClub.setIdClub(generarIdAutonumerico(conexion));
+		
+		consultas.insertaClub(conexion, nuevoClub);
 		
 		listaClub.add(nuevoClub);
 		
@@ -31,25 +39,16 @@ public class ClubImplementacion implements ClubInterfaz{
 		
 	}
 
-	public void borrarClub(List<ClubDto> listaClub) {
+	public void borrarClub(List<ClubDto> listaClub, Connection conexiones) {
 		
 		System.out.println("Dame el código de acceso del club que quieras eliminar");
         String codigoAccesoAEliminar = sc.next();
 
-        // Eliminamos al usuario con el DNI dado
-        boolean eliminado = listaClub.removeIf(club -> club.getCodigo_acceso().equals(codigoAccesoAEliminar));
-
-        if (eliminado) {
-            System.out.println("Club con el código de acceso " + codigoAccesoAEliminar + " eliminado.");
-        } else {
-            System.out.println("Club no encontrado por el código de acceso.");
-        }
-        for (ClubDto club : listaClub) {
-        	System.out.println(club.toString());
-		}
+        consultas.eliminarClub(conexiones, codigoAccesoAEliminar);
+        
 	}
 	
-	public void modificarClub(List<ClubDto> listaClub) {
+	/**public void modificarClub(List<ClubDto> listaClub) {
 		System.out.println("Dame el código de acceso del club que quieras eliminar");
         String codigoAccesoAModificar = sc.next();
         
@@ -81,10 +80,52 @@ public class ClubImplementacion implements ClubInterfaz{
         for (ClubDto club : listaClub) {
         	System.out.println(club.toString());
 		}
+	}*/
+	public void clubModificar() {
+	    System.out.println("Dame el DNI del usuario que quieras modificar:");
+	    String codigoClubModificar = sc.next();
+
+	    // Conectar a la base de datos
+	    Connection conexion = conexionPostgresql.generaConexion();
+	    ClubDto clubEncontrado = consultas.buscarClubPorCodigo(conexion, codigoClubModificar);
+
+	    if (clubEncontrado == null) {
+	        System.out.println("No se encontró ningún club con el codigo " + codigoClubModificar + ".");
+	        return;
+	    }
+
+	    // Preguntar qué campo quiere modificar
+	    System.out.println("¿Que campos quieres modificar? [1] - Nombre, [2] - Colores");
+	    byte opcion = sc.nextByte();
+
+	    switch (opcion) {
+	        case 1:
+	            System.out.println("Introduce el nuevo nombre:");
+	            clubEncontrado.setNombre(sc.next());
+	            break;
+	        case 2:
+	            System.out.println("Introduce los nuevos apellidos:");
+	            clubEncontrado.setColores(sc.next());
+	            break;
+	        default:
+	            System.out.println("Opción no válida.");
+	            return;
+	    }
+
+	    // Aquí llamarás a un método para actualizar en la base de datos
+	    boolean resultado = consultas.actualizaClub(conexion, clubEncontrado); // Implementar este método
+	    if (resultado) {
+	        System.out.println("El club ha sido actualizado con éxito.");
+	    } else {
+	        System.out.println("Error al actualizar el club.");
+	    }
+
+	    // Mostrar la lista actualizada de usuarios (opcional)
+	    // Puedes volver a buscar los usuarios desde la base de datos si lo deseas
 	}
 
 
-private long idAutoGenerado(List<ClubDto> listaClub) {
+/**private long idAutoGenerado(List<ClubDto> listaClub) {
 	
 	long idAuto;
 	
@@ -100,7 +141,9 @@ private long idAutoGenerado(List<ClubDto> listaClub) {
 	
 	return idAuto;
 	
-}
+}*/
+	
+
 
 	private String generarCodigoAcceso() {
     // Conjunto de caracteres que se utilizarán (mayúsculas, minúsculas y números)

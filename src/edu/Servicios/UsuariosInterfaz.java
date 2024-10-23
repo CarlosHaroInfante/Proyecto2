@@ -10,5 +10,7 @@ public interface UsuariosInterfaz {
 	
 	public void usuarioBaja(List<UsuarioDto> listaUsuarios);
 	
-	public void usuarioModificar(List<UsuarioDto> listaUsuarios);
+	//public void usuarioModificar(List<UsuarioDto> listaUsuarios);
+	
+	public void usuarioModificar();
 }

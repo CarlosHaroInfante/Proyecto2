@@ -1,5 +1,6 @@
 package edu.Servicios;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,6 +8,8 @@ import edu.Dtos.UsuarioDto;
 
 public class UsuarioImplementacion implements UsuariosInterfaz{
 
+	ConsultasPostgresqlInterfaz consultas = new ConsultasPostgresqlImplementacion();
+	ConexionPostgresqlInterfaz conexion = new ConexionPostgresqlImplementacion();
 	Scanner sc = new Scanner(System.in);
 	public void usuarioNuevo(List<UsuarioDto> listaUsuarios) {
 		UsuarioDto usuarioNuevo = new UsuarioDto();
@@ -26,15 +29,18 @@ public class UsuarioImplementacion implements UsuariosInterfaz{
             }
         } while (!validarDniReal(dni));
         usuarioNuevo.setDni(dni);
+        
+		System.out.println("Email del usuario");
+		usuarioNuevo.setEmail(sc.next());
 		
 		System.out.println("Telefono del usuario");
 		usuarioNuevo.setTelefono(sc.next());
 		
-		System.out.println("Email del usuario");
-		usuarioNuevo.setEmail(sc.next());
+		
 		
 		usuarioNuevo.setIdUsuario(idAutoGenerado(listaUsuarios));
 		
+		consultas.insertaUsuario(conexion.generaConexion(), usuarioNuevo);
 		listaUsuarios.add(usuarioNuevo);
 		
 		for (UsuarioDto usuario : listaUsuarios) {
@@ -47,11 +53,15 @@ public class UsuarioImplementacion implements UsuariosInterfaz{
 		
 		 	System.out.println("Dame el dni del usuario que quieras eliminar");
 	        String dniAEliminar = sc.next();
-
+	                
+	        Connection conexiones = conexion.generaConexion();
+	        
 	        // Eliminamos al usuario con el DNI dado
 	        boolean eliminado = listaUsuarios.removeIf(usuario -> usuario.getDni().equals(dniAEliminar));
-
+	        
+	        boolean eliminador = consultas.eliminaUsuario(conexiones, dniAEliminar);
 	        if (eliminado) {
+	        	
 	            System.out.println("Usuario con DNI " + dniAEliminar + " eliminado.");
 	        } else {
 	            System.out.println("Usuario no encontrado por DNI.");
@@ -62,7 +72,7 @@ public class UsuarioImplementacion implements UsuariosInterfaz{
 		
 	}
 	
-	public void usuarioModificar(List<UsuarioDto> listaUsuarios){
+	/*public void usuarioModificar(List<UsuarioDto> listaUsuarios){
 		
 		System.out.println("Dame el dni del usuario que quieras modificar");
         String dniClienteModificar = sc.next();
@@ -120,7 +130,59 @@ public class UsuarioImplementacion implements UsuariosInterfaz{
 				}
         
 		
+	}*/
+	
+	public void usuarioModificar() {
+	    System.out.println("Dame el DNI del usuario que quieras modificar:");
+	    String dniClienteModificar = sc.next();
+
+	    // Conectar a la base de datos
+	    Connection conexionsql = conexion.generaConexion();
+	    UsuarioDto usuarioEncontrado = consultas.buscarUsuarioPorDni(conexionsql, dniClienteModificar);
+
+	    if (usuarioEncontrado == null) {
+	        System.out.println("No se encontró ningún usuario con el DNI " + dniClienteModificar + ".");
+	        return;
+	    }
+
+	    // Preguntar qué campo quiere modificar
+	    System.out.println("¿Qué campo deseas modificar? [1] - Nombre, [2] - Apellidos, [3] - Telefono, [4] - Email");
+	    byte opcion = sc.nextByte();
+
+	    switch (opcion) {
+	        case 1:
+	            System.out.println("Introduce el nuevo nombre:");
+	            usuarioEncontrado.setNombre(sc.next());
+	            break;
+	        case 2:
+	            System.out.println("Introduce los nuevos apellidos:");
+	            usuarioEncontrado.setApellidos(sc.next());
+	            break;
+	        case 3:
+	            System.out.println("Introduce el nuevo teléfono:");
+	            usuarioEncontrado.setTelefono(sc.next());
+	            break;
+	        case 4:
+	            System.out.println("Introduce el nuevo email:");
+	            usuarioEncontrado.setEmail(sc.next());
+	            break;
+	        default:
+	            System.out.println("Opción no válida.");
+	            return;
+	    }
+
+	    // Aquí llamarás a un método para actualizar en la base de datos
+	    boolean resultado = consultas.actualizaUsuario(conexionsql, usuarioEncontrado); // Implementar este método
+	    if (resultado) {
+	        System.out.println("El usuario ha sido actualizado con éxito.");
+	    } else {
+	        System.out.println("Error al actualizar el usuario.");
+	    }
+
+	    // Mostrar la lista actualizada de usuarios (opcional)
+	    // Puedes volver a buscar los usuarios desde la base de datos si lo deseas
 	}
+
 	
 	
 	private long idAutoGenerado(List<UsuarioDto> listaUsuarios) {

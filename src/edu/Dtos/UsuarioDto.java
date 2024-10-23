@@ -6,8 +6,9 @@ public class UsuarioDto {
 	private String nombre;
 	private String apellidos;
 	private String dni;
-	private String telefono;
 	private String email;
+	private String telefono;
+	
 	
 	public long getIdUsuario() {
 		return idUsuario;
@@ -33,26 +34,27 @@ public class UsuarioDto {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	public String getTelefono() {
-		return telefono;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public UsuarioDto(long idUsuario, String nombre, String apellidos, String dni, String telefono, String email) {
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	
+	public UsuarioDto(long idUsuario, String nombre, String apellidos, String dni, String email, String telefono) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.dni = dni;
-		this.telefono = telefono;
 		this.email = email;
+		this.telefono = telefono;
 	}
 	
 	public UsuarioDto() {

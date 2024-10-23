@@ -10,6 +10,8 @@ import edu.Servicios.ClubImplementacion;
 import edu.Servicios.ClubInterfaz;
 import edu.Servicios.ConexionPostgresqlImplementacion;
 import edu.Servicios.ConexionPostgresqlInterfaz;
+import edu.Servicios.ConsultasPostgresqlImplementacion;
+import edu.Servicios.ConsultasPostgresqlInterfaz;
 import edu.Servicios.FicheroLogImplementacion;
 import edu.Servicios.FicheroLogInterfaz;
 import edu.Servicios.MenuImplementacion;
@@ -28,6 +30,8 @@ import edu.Servicios.UsuariosInterfaz;
 		 */
 		public static void main(String[] args) {
 			
+			
+			ConsultasPostgresqlInterfaz consultas = new ConsultasPostgresqlImplementacion();
 			ConexionPostgresqlInterfaz postgreConexion = new ConexionPostgresqlImplementacion();
 			MenuInterfaz menu = new MenuImplementacion();
 			UsuariosInterfaz usuarios = new UsuarioImplementacion();
@@ -43,13 +47,14 @@ import edu.Servicios.UsuariosInterfaz;
 				
 				if(conexion != null) {
 					System.out.println("CONEXION ESTABLECIDA");
+					
 					}	
 			} catch (Exception e) {
 				System.err.println("[ERROR-Main] Se ha producido un error al ejecutar la aplicación: " + e);
 			}
 			
 			try {
-				
+				Connection conexion = postgreConexion.generaConexion();
 				while (!cerrarMenu) {
 					byte opcionMenu = menu.menuPrincipal();
 					mensaje = "Entra en el menú principal";
@@ -113,7 +118,7 @@ import edu.Servicios.UsuariosInterfaz;
 								System.out.println("Eliminar cuenta de club");
 								mensaje = "Se eliminar una cuenta de club";
 								ficheroLog.ficheroLog(mensaje);
-								clubes.borrarClub(listaClub);
+								clubes.borrarClub(listaClub, conexion);
 								break;
 							default:
 								System.out.println("Opción no válida, vuelva a intentarlo");
@@ -138,13 +143,13 @@ import edu.Servicios.UsuariosInterfaz;
 								System.out.println("Modificar cuenta de usuario");
 								mensaje = "Se modifica una cuenta de usuario";
 								ficheroLog.ficheroLog(mensaje);
-								usuarios.usuarioModificar(listaUsuarios);
+								usuarios.usuarioModificar();
 								break;
 							case 2:
 								System.out.println("Modificar cuenta de club");
 								mensaje = "Se modifica una cuenta de club";
 								ficheroLog.ficheroLog(mensaje);
-								clubes.modificarClub(listaClub);
+								clubes.clubModificar();
 								break;
 							default:
 								System.out.println("Opción no válida, vuelva a intentarlo");
